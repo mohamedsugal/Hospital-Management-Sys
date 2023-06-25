@@ -40,6 +40,8 @@ public class Main {
         );
         Hospital hospital = new Hospital(doctors, nurses, patients);
 
+        // Display doctors assigned to nurses
+        Hospital.assignNursesToDoctors(doctors, nurses);
 
         /**
          TASKS
