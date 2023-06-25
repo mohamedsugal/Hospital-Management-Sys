@@ -1,5 +1,10 @@
 package org.example;
-import java.util.*;
+
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Hospital {
     private final List<Doctor> doctors;
@@ -29,52 +34,35 @@ public class Hospital {
     // Task 1: Method that assigns doctors with nurses in a similar specialty
     public void assignNursesToDoctors() {
         // Grab nurses name to their specialities without word "Nurse"
-        Map<String, List<String>> mapDoctorsSpecialtiesToTheirNames = mapDoctorsSpecialtiesToTheirNames(doctors);
+        Map<String, List<Doctor>> specialtyToDoctor = new HashMap<>();
         Map<Doctor, List<Nurse>> assignNurseToDoctor = new HashMap<>();
-        for (Nurse nurse : nurses){
-            // This is nurses name
-            String nurseName = nurse.getName();
-            String specialty = nurse.getSpecialty();
-            // This is nurses specialty
-            String nurseSpecialty = specialty.substring(0, specialty.length() - 6);
-            List<String> assignedNurses = new ArrayList<>();
-            for(String doctors : mapDoctorsSpecialtiesToTheirNames.get(nurseSpecialty)){
-                String doctorName = doctors;
-                if(mapDoctorsSpecialtiesToTheirNames.get(nurseSpecialty).equals(nurseSpecialty)){
-                    assignedNurses.add(nurseName);
-
-                }
-
-
-            }
-
-//            assignNurseToDoctor.put(doctorName, assignedNurses);
-        }
-    }
-
-    // Method that map that maps doctor's specialities as a key and their names as a value of list.
-    private static Map<String, List<String>> mapDoctorsSpecialtiesToTheirNames(List<Doctor> doctors) {
-        Map<String, List<String>> mapDoctorsSpecialtiesToTheirNames = new HashMap<>();
 
         for (Doctor doctor : doctors) {
-            String doctorName = doctor.getName();
-            String doctorSpecialty = doctor.getSpecialty();
-
-            // Check if the specialty is already present in the map
-            if (mapDoctorsSpecialtiesToTheirNames.containsKey(doctorSpecialty)) {
-                List<String> doctorNamesList = mapDoctorsSpecialtiesToTheirNames.get(doctorSpecialty);
-                doctorNamesList.add(doctorName);
-            } else {
-                List<String> doctorNamesList = new ArrayList<>();
-                doctorNamesList.add(doctorName);
-                mapDoctorsSpecialtiesToTheirNames.put(doctorSpecialty, doctorNamesList);
+            if (!assignNurseToDoctor.containsKey(doctor)) {
+                assignNurseToDoctor.put(doctor, new ArrayList<>());
             }
+            if (!specialtyToDoctor.containsKey(doctor.getSpecialty())) {
+                specialtyToDoctor.put(doctor.getSpecialty(), new ArrayList<>());
+            }
+            specialtyToDoctor.get(doctor.getSpecialty()).add(doctor);
         }
 
-//        mapDoctorsSpecialtiesToTheirNames.forEach((doctorSpeciality, doctorNamesList) ->
-//                System.out.println("Specialty " + doctorSpeciality + " assigned to Doctors " + doctorNamesList));
-
-        return mapDoctorsSpecialtiesToTheirNames;
+        for (Nurse nurse : nurses) {
+            String nurseSpecialty = nurse.getSpecialty().substring(0, nurse.getSpecialty().length() - 6);
+            if (specialtyToDoctor.containsKey(nurseSpecialty)) {
+                for (Doctor doctor : specialtyToDoctor.get(nurseSpecialty)) {
+                    assignNurseToDoctor.get(doctor).add(nurse);
+                }
+            } else {
+                // handle if nurse specialty not found in the doctor's specialty
+                assignNurseToDoctor.put(new Doctor("N/A", -1, "N/A", -1, new ArrayList<>()), List.of(nurse));
+            }
+        }
+        assignNurseToDoctor.forEach((doctor, nursesList) -> {
+            System.out.print("Doctor: " + doctor.getName() + " Nurses: ");
+            nursesList.forEach(nurse -> System.out.print("[" + nurse.getName() + ","));
+            System.out.print("]");
+            System.out.println();
+        });
     }
-
 }

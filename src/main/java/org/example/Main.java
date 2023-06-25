@@ -1,7 +1,6 @@
 package org.example;
 
 import java.util.List;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,9 +12,8 @@ public class Main {
                 new Doctor("Daniel Kim", 45, "Surgery", 24680, List.of("ACL", "Torn ligament", "Transplant")),
                 new Doctor("Don Robert", 45, "General Medicine", 38618, List.of("Headache", "Migraine", "Flu", "Pneumonia", "Diabetes", "Asthma")),
                 new Doctor("Micheal Philips", 44, "Urgent Care", 371890, List.of("Appendicitis", "Broken arm", "Injury")),
-                new Doctor("Mohamed Sugal", 33, "Neurology", 13579, List.of("Parkinson's disease", "Epilepsy"))
-//                new Doctor("Abdi Adam", 39, "Gastroenterology", 54321, List.of("Gastric ulcers", "Colorectal cancer", "Irritable bowel syndrome"))
-        );
+                new Doctor("Mohamed Sugal", 33, "Neurology", 13579, List.of("Parkinson's disease", "Epilepsy")),
+                new Doctor("Abdi Adam", 39, "Gastroenterology", 54321, List.of("Gastric ulcers", "Colorectal cancer", "Irritable bowel syndrome")));
 
         List<Nurse> nurses = List.of(
                 new Nurse("Amy Lee", 29, "Pediatrics Nurse", 3, "PNCB"),
@@ -25,9 +23,8 @@ public class Main {
                 new Nurse("Eva Patel", 34, "Cardiology Nurse", 6, "AACN"),
                 new Nurse("Frank Williams", 38, "Urgent Care Nurse", 8, "CCRN"),
                 new Nurse("Grace Lee", 33, "Neurology Nurse", 7, "CNN"),
-                new Nurse("Hui Wang", 43, "Urgent Care Nurse", 7, "CNN")
-//                new Nurse("Rebecca Chris", 35, "Emergency Nurse", 4, "ENA")
-        );
+                new Nurse("Hui Wang", 43, "Urgent Care Nurse", 7, "CNN"),
+                new Nurse("Rebecca Chris", 35, "Emergency Nurse", 4, "ENA"));
 
         List<Patient> patients = List.of(
                 new Patient("Alice Smith", 32, "123 Main St.", "Flu"),
@@ -40,21 +37,16 @@ public class Main {
                 new Patient("Henry Davis", 48, "999 Walnut St.", "Diabetes"),
                 new Patient("Isabella Rodriguez", 25, "444 Spruce St.", "Asthma"),
                 new Patient("John Nguyen", 36, "666 Laurel St.", "Appendicitis"),
-                new Patient("Sylvia Brown", 26, "3373 W Saint Germain", "Torn ligament")
-        );
-        Hospital hospital = new Hospital(doctors, nurses, patients);
-        // Display doctors assigned to nurses
-        hospital.assignNursesToDoctors();
+                new Patient("Sylvia Brown", 26, "3373 W Saint Germain", "Torn ligament"));
 
-//        Map<String, List<String>> mapDoctorsSpecialtiesToTheirNames = hospital.mapDoctorsSpecialtiesToTheirNames(doctors);
-//
-//        // Print the output
-//        mapDoctorsSpecialtiesToTheirNames.forEach((specialty, doctorNamesList) ->
-//                System.out.println("Speciality " + specialty + " assigned to Doctors " + doctorNamesList));
+        Hospital hospital = new Hospital(doctors, nurses, patients);
+
+        // Task1: Assign Nurses to Doctors
+        hospital.assignNursesToDoctors();
 
         /**
          TASKS
-         1. Assign Nurses to Doctors
+         1. Assign Nurses to Doctors + UNIT TEST
          2. Assign patients to doctors based on their health condition.
          3. Assign patients to nurses that work with the doctor above
          4. Find average number of patients per doctor
