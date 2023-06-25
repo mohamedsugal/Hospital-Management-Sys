@@ -39,9 +39,8 @@ public class Main {
                 new Patient("Sylvia Brown", 26, "3373 W Saint Germain", "Torn ligament")
         );
         Hospital hospital = new Hospital(doctors, nurses, patients);
-
         // Display doctors assigned to nurses
-        Hospital.assignNursesToDoctors(doctors, nurses);
+        hospital.assignNursesToDoctors();
 
         /**
          TASKS
