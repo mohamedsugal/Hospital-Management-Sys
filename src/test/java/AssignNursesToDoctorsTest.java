@@ -10,9 +10,9 @@ import java.io.PrintStream;
 import java.util.List;
 
 
-public class TestAssignNursesToDoctors {
+public class AssignNursesToDoctorsTest {
     @Test
-    public void testAssignNursesToDoctors() {
+    public void assignNursesToDoctorsTest() {
         List<Doctor> doctors = List.of(
                 new Doctor("John Smith", 35, "Cardiology", 472871, List.of("Heart Disease", "High blood pressure", "Heart failure")),
                 new Doctor("Sarah Johnson", 42, "Oncology", 67890, List.of("Cancer")),
