@@ -32,7 +32,7 @@ public class Hospital {
     }
 
     // Task 1: Method that assigns doctors with nurses in a similar specialty
-    public void assignNursesToDoctors() {
+    public String assignNursesToDoctors() {
         // Grab nurses name to their specialities without word "Nurse"
         Map<String, List<Doctor>> specialtyToDoctor = new HashMap<>();
         Map<Doctor, List<Nurse>> assignNurseToDoctor = new HashMap<>();
@@ -58,11 +58,20 @@ public class Hospital {
                 assignNurseToDoctor.put(new Doctor("N/A", -1, "N/A", -1, new ArrayList<>()), List.of(nurse));
             }
         }
+//        assignNurseToDoctor.forEach((doctor, nursesList) -> {
+//            System.out.print("Doctor: " + doctor.getName() + " Nurses: ");
+//            nursesList.forEach(nurse -> System.out.print("[" + nurse.getName() + ","));
+//            System.out.print("]");
+//            System.out.println();
+//        });
+
+        // Changed assignNursesToDoctors to return
+        StringBuilder sb = new StringBuilder();
         assignNurseToDoctor.forEach((doctor, nursesList) -> {
-            System.out.print("Doctor: " + doctor.getName() + " Nurses: ");
-            nursesList.forEach(nurse -> System.out.print("[" + nurse.getName() + ","));
-            System.out.print("]");
-            System.out.println();
+            sb.append("Doctor: ").append(doctor.getName()).append(" Nurses: ");
+            nursesList.forEach(nurse -> sb.append("[").append(nurse.getName()).append(","));
+            sb.append("]\n");
         });
+        return sb.toString();
     }
 }

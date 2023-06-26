@@ -1,9 +1,18 @@
-package org.example;
+import org.example.Doctor;
+import org.example.Nurse;
+import org.example.Hospital;
+import org.example.Patient;
+import org.junit.Assert;
+import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.List;
 
-public class Main {
-    public static void main(String[] args) {
+
+public class TestAssignNursesToDoctors {
+    @Test
+    public void testAssignNursesToDoctors() {
         List<Doctor> doctors = List.of(
                 new Doctor("John Smith", 35, "Cardiology", 472871, List.of("Heart Disease", "High blood pressure", "Heart failure")),
                 new Doctor("Sarah Johnson", 42, "Oncology", 67890, List.of("Cancer")),
@@ -39,26 +48,29 @@ public class Main {
                 new Patient("John Nguyen", 36, "666 Laurel St.", "Appendicitis"),
                 new Patient("Sylvia Brown", 26, "3373 W Saint Germain", "Torn ligament"));
 
+
         Hospital hospital = new Hospital(doctors, nurses, patients);
+        // In case assignNursesToDoctors method to return nothing (void)
+        String result = hospital.assignNursesToDoctors();
 
-        // Task1: Assign Nurses to Doctors
-        // If case assignNursesToDoctors method returns void
+        // If we want assignNursesToDoctors method to return STRING output instead of void
+//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//        System.setOut(new PrintStream(outputStream));
 //        hospital.assignNursesToDoctors();
+//        String result = outputStream.toString();
 
-        // If case assignNursesToDoctors method returns string
-        System.out.println(hospital.assignNursesToDoctors());
 
-        /**
-         TASKS
-         1. Assign Nurses to Doctors + UNIT TEST
-         2. Assign patients to doctors based on their health condition.
-         3. Assign patients to nurses that work with the doctor above
-         4. Find average number of patients per doctor
-         5. Find which doctor has the most patients
-         6. Create a function that searches a medical staff by name
-         and return their info
-         7. Create a function that search for patient and returns
-         the doctor and the nurses that work with the doctor
-         */
+        String expectedOutput = "Doctor: N/A Nurses: [Rebecca Chris,]\n"
+                + "Doctor: Emily Chen Nurses: [Grace Lee,]\n"
+                + "Doctor: Don Robert Nurses: [Carla Davis,]\n"
+                + "Doctor: Abdi Adam Nurses: ]\n"
+                + "Doctor: Sarah Johnson Nurses: [Brian Johnson,]\n"
+                + "Doctor: David Lee Nurses: [Amy Lee,]\n"
+                + "Doctor: John Smith Nurses: [Eva Patel,]\n"
+                + "Doctor: Mohamed Sugal Nurses: [Grace Lee,]\n"
+                + "Doctor: Daniel Kim Nurses: [David Garcia,]\n"
+                + "Doctor: Micheal Philips Nurses: [Frank Williams,[Hui Wang,]\n";
+
+        Assert.assertEquals(expectedOutput, result);
     }
 }
