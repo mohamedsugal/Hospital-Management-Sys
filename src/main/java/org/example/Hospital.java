@@ -7,32 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Hospital {
-    private final List<Doctor> doctors;
-    private final List<Nurse> nurses;
-    private final List<Patient> patients;
-
-    public Hospital(final List<Doctor> doctors,
-                    final List<Nurse> nurses,
-                    final List<Patient> patients) {
-        this.doctors = doctors;
-        this.nurses = nurses;
-        this.patients = patients;
-    }
-
-    public List<Doctor> getDoctors() {
-        return doctors;
-    }
-
-    public List<Nurse> getNurses() {
-        return nurses;
-    }
-
-    public List<Patient> getPatients() {
-        return patients;
-    }
+    public Hospital(){}
 
     // Task 1: Method that assigns doctors with nurses in a similar specialty
-    public void assignNursesToDoctors() {
+    public Map<Doctor, List<Nurse>> assignNursesToDoctors(List<Doctor> doctors, List<Nurse> nurses) {
         // Grab nurses name to their specialities without word "Nurse"
         Map<String, List<Doctor>> specialtyToDoctor = new HashMap<>();
         Map<Doctor, List<Nurse>> assignNurseToDoctor = new HashMap<>();
@@ -55,14 +33,10 @@ public class Hospital {
                 }
             } else {
                 // handle if nurse specialty not found in the doctor's specialty
-                assignNurseToDoctor.put(new Doctor("N/A", -1, "N/A", -1, new ArrayList<>()), List.of(nurse));
+                assignNurseToDoctor.put(HospitalData.notApplicableDoctor(), List.of(nurse));
             }
         }
-        assignNurseToDoctor.forEach((doctor, nursesList) -> {
-            System.out.print("Doctor: " + doctor.getName() + " Nurses: ");
-            nursesList.forEach(nurse -> System.out.print("[" + nurse.getName() + ","));
-            System.out.print("]");
-            System.out.println();
-        });
+
+        return assignNurseToDoctor;
     }
 }
