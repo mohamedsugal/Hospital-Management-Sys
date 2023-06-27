@@ -31,8 +31,8 @@ public class AssignNursesToDoctorsTest {
     @Test
     public void doctorShouldHaveNursesAssignedTest() {
         Hospital hospital = new Hospital();
-        Doctor doctor1 = new Doctor("Mohamed Sugal", 29, "Surgery", 123, List.of("Fever"));
-        Nurse nurse1 = new Nurse("Amy Lee", 29, "Surgery Nurse", 3, "PNCB");
+        Doctor doctor1 = new Doctor("Mohamed Sugal", 29, "Urgent Care", 123, List.of("Fever"));
+        Nurse nurse1 = new Nurse("Amy Lee", 29, "Urgent Care Nurse", 3, "PNCB");
 
         Map<Doctor, List<Nurse>> doctorsToNursesMap = hospital.assignNursesToDoctors(
                 List.of(doctor1),
@@ -41,7 +41,7 @@ public class AssignNursesToDoctorsTest {
         // Doctor Mohamed Sugal should have 1 nurse assigned to him
         Assert.assertEquals(1, doctorsToNursesMap.get(doctor1).size());
         Assert.assertEquals("Amy Lee", doctorsToNursesMap.get(doctor1).get(0).getName());
-        Assert.assertEquals("Surgery Nurse", doctorsToNursesMap.get(doctor1).get(0).getSpecialty());
+        Assert.assertEquals("Urgent Care Nurse", doctorsToNursesMap.get(doctor1).get(0).getSpecialty());
         Assert.assertEquals("PNCB", doctorsToNursesMap.get(doctor1).get(0).getCertification());
     }
 
