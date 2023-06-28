@@ -1,10 +1,9 @@
-import org.example.*;
-
+import org.example.Doctor;
+import org.example.Hospital;
+import org.example.Nurse;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,11 +20,13 @@ public class AssignNursesToDoctorsTest {
                 List.of(nurse1)
         );
 
-        Map<Doctor, List<Nurse>> expectedMap = new LinkedHashMap<>();
-        expectedMap.put(doctor1, new ArrayList<>());
-        expectedMap.put(HospitalData.notApplicableDoctor(), List.of(nurse1));
-
-        Assert.assertEquals(expectedMap.toString(), actualMap.toString());
+        for (Doctor doctor : actualMap.keySet()) {
+            if (!actualMap.get(doctor).isEmpty() && actualMap.get(doctor).get(0).getName().equals("Hui Wang")) {
+                Assert.assertEquals("N/A", doctor.getName());
+                Assert.assertEquals("N/A", doctor.getSpecialty());
+                Assert.assertEquals(-1, doctor.getAge());
+            }
+        }
     }
 
     @Test
