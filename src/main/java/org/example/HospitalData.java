@@ -11,10 +11,10 @@ public class HospitalData {
                 new Doctor("David Lee", 28, "Pediatrics", 54321, List.of("Baby infection", "Baby fever", "Baby flu")),
                 new Doctor("Emily Chen", 50, "Neurology", 19876, List.of("Brain", "Spinal cord", "Peripheral nerves", "Stroke")),
                 new Doctor("Daniel Kim", 45, "Surgery", 24680, List.of("ACL", "Torn ligament", "Transplant")),
-                new Doctor("Don Robert", 45, "General Medicine", 38618, List.of("Headache", "Migraine", "Flu", "Pneumonia", "Diabetes", "Asthma")),
+                new Doctor("Don Robert", 45, "General Medicine", 38618, List.of("Headache", "Migraine", "Flu", "Pneumonia", "Diabetes")),
                 new Doctor("Micheal Philips", 44, "Urgent Care", 371890, List.of("Appendicitis", "Broken arm", "Injury")),
-                new Doctor("Mohamed Sugal", 33, "Neurology", 13579, List.of("Parkinson's disease", "Epilepsy")),
-                new Doctor("Abdi Adam", 39, "Gastroenterology", 54321, List.of("Gastric ulcers", "Colorectal cancer", "Irritable bowel syndrome")));
+                new Doctor("Evelyn Hawthorne", 33, "Neurology", 13579, List.of("Parkinson's disease", "Epilepsy")),
+                new Doctor("Benjamin Mercer", 39, "Gastroenterology", 54321, List.of("Gastric ulcers", "Colorectal cancer", "Irritable bowel syndrome")));
     }
 
     public static List<Nurse> getNurses() {
@@ -39,10 +39,11 @@ public class HospitalData {
                 new Patient("Eva Garcia", 19, "222 Pine St.", "Migraine"),
                 new Patient("Frank Patel", 63, "333 Cedar St.", "Stroke"),
                 new Patient("Grace Kim", 39, "777 Birch St.", "Pneumonia"),
-                new Patient("Henry Davis", 48, "999 Walnut St.", "Diabetes"),
-                new Patient("Isabella Rodriguez", 25, "444 Spruce St.", "Asthma"),
+                new Patient("Henry Davis", 48, "999 Walnut St.", "High blood pressure"),
+                new Patient("Isabella Rodriguez", 25, "444 Spruce St.", "Epilepsy"),
                 new Patient("John Nguyen", 36, "666 Laurel St.", "Appendicitis"),
-                new Patient("Sylvia Brown", 26, "3373 W Saint Germain", "Torn ligament"));
+                new Patient("Sylvia Brown", 26, "3373 W Saint Germain St.", "Torn ligament"),
+                new Patient("Sophia Reynolds", 40, "100 Diamon Lake St.", "Gastric ulcers"));
     }
 
     public static Doctor notApplicableDoctor() {

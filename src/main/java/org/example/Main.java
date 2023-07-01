@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,13 +11,15 @@ public class Main {
         List<Nurse> nurses = HospitalData.getNurses();
         List<Patient> patients = HospitalData.getPatients();
 
-        // Print out assignNursesToDoctors method
-//        Map<Doctor, List<Nurse>> assignNursesToDoctors = hospital.assignNursesToDoctors(doctors, nurses);
-//        assignNursesToDoctors.forEach((doctor, nursesList) -> {
-//            System.out.print("Doctor: " + doctor.getName() + " Nurses: ");
-//            nursesList.forEach(nurse -> System.out.print(nurse.getName() + ", "));
-//            System.out.println();
-//        });
+//         Print out assignNursesToDoctors method
+        Map<Doctor, List<Nurse>> assignNursesToDoctors = hospital.assignNursesToDoctors(doctors, nurses);
+        assignNursesToDoctors.forEach((doctor, nursesList) -> {
+            List<String> allNurses = nursesList.stream().map(MedicalStaff::getName).collect(Collectors.toList());
+            System.out.println("Doctor: " + doctor.getName() + " assigned to Nurses: " + allNurses);
+
+        });
+
+        System.out.println("-----------------");
 
         // Print out assignPatientsToDoctors method
         Map<String, List<String>> assignPatientsToDoctors = hospital.assignPatientsToDoctors(doctors, patients);
