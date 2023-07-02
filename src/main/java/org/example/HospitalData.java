@@ -6,7 +6,7 @@ import java.util.List;
 public class HospitalData {
     public static List<Doctor> getDoctors() {
         return List.of(
-                new Doctor("John Smith", 35, "Cardiology", 472871, List.of("Heart Disease", "High blood pressure", "Heart failure")),
+                new Doctor("John Smith", 35, "Cardiology", 472871, List.of("Heart disease", "High blood pressure", "Heart failure")),
                 new Doctor("Sarah Johnson", 42, "Oncology", 67890, List.of("Cancer")),
                 new Doctor("David Lee", 28, "Pediatrics", 54321, List.of("Baby infection", "Baby fever", "Baby flu")),
                 new Doctor("Emily Chen", 50, "Neurology", 19876, List.of("Brain", "Spinal cord", "Peripheral nerves", "Stroke")),
@@ -33,7 +33,7 @@ public class HospitalData {
     public static List<Patient> getPatients() {
         return List.of(
                 new Patient("Alice Smith", 32, "123 Main St.", "Flu"),
-                new Patient("Bob Johnson", 45, "456 Elm St.", "Heart disease"),
+                new Patient("Bob Johnson", 45, "456 Elm St.", "Leukemia"),
                 new Patient("Charlie Brown", 28, "789 Oak St.", "Broken arm"),
                 new Patient("David Lee", 57, "555 Maple St.", "Cancer"),
                 new Patient("Eva Garcia", 19, "222 Pine St.", "Migraine"),
@@ -43,7 +43,8 @@ public class HospitalData {
                 new Patient("Isabella Rodriguez", 25, "444 Spruce St.", "Epilepsy"),
                 new Patient("John Nguyen", 36, "666 Laurel St.", "Appendicitis"),
                 new Patient("Sylvia Brown", 26, "3373 W Saint Germain St.", "Torn ligament"),
-                new Patient("Sophia Reynolds", 40, "100 Diamon Lake St.", "Gastric ulcers"));
+                new Patient("Sophia Reynolds", 40, "100 Diamon Lake St.", "Gastric ulcers"),
+                new Patient("Christiano Ronaldo", 30, "316 Oakland St.", "Muscle injury"));
     }
 
     public static Doctor notApplicableDoctor() {
