@@ -48,26 +48,41 @@ public class Hospital {
             // Initialize an empty list of doctor's treated cases
             List<String> doctorTreatedCases = new ArrayList<>();
             for (String treatedCase : doctor.getTreatedCases()) {
-                // Not sure why this grayed out
-                doctorTreatedCases.add(treatedCase);
+                doctorTreatedCases.add(treatedCase.toLowerCase());
             }
 
             treatedCasesToDoctor.put(doctor.getName(), doctorTreatedCases);
-            // Initialize each doctor's list with an empty list
             assignPatientToDoctor.put(doctor.getName(), new ArrayList<>());
         }
 
+        // Build casesToDoctorsMap of treated cases to doctors
+        Map<String, String> casesToDoctorsMap = new HashMap<>();
+        for (Map.Entry<String, List<String>> entry : treatedCasesToDoctor.entrySet()) {
+            String doctor = entry.getKey();
+            List<String> treatedCases = entry.getValue();
+            for (String cases : treatedCases) {
+                casesToDoctorsMap.put(cases, doctor);
+            }
+        }
+
         for (Patient patient : patients) {
-            treatedCasesToDoctor.forEach((doctor, treatedCases) -> {
-                // Here contains is O(N)
-                if (treatedCases.contains(patient.getHealthConditions())) {
-                    assignPatientToDoctor.get(doctor).add(patient.getName());
+            boolean doctorFound = false;
+            String healthCondition = patient.getHealthConditions().toLowerCase();
+
+            if (casesToDoctorsMap.containsKey(healthCondition)) {
+                String doctor = casesToDoctorsMap.get(healthCondition);
+                assignPatientToDoctor.get(doctor).add(patient.getName());
+                doctorFound = true;
+            }
+
+            if (!doctorFound) {
+                // handle multiple patients without a matching doctor
+                if (assignPatientToDoctor.containsKey("N/A")) {
+                    assignPatientToDoctor.get("N/A").add(patient.getName());
+                } else {
+                    assignPatientToDoctor.put("N/A", new ArrayList<>(List.of(patient.getName())));
                 }
-                // Here I need to implement when treatedCases doesn't contain patient.getHealthConditions()
-                // assignPatientToDoctor doctor's name should be "N/A" to patient's name
-
-            });
-
+            }
         }
 
         return assignPatientToDoctor;
