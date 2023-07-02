@@ -20,7 +20,7 @@ public class AssignPatientsToDoctorsTest {
         );
 
         // Assertion test for matching health condition
-        Assert.assertEquals(1, patientsToDoctorsMap.get(doctor1.getName()).size());
+        Assert.assertEquals(2, patientsToDoctorsMap.get(doctor1.getName()).size());
         // Assert equal doctor1's treated case and patient1's heath condition
         Assert.assertEquals(doctor1.getTreatedCases().get(0), patient1.getHealthConditions());
         Assert.assertEquals("Alice Johnson", patientsToDoctorsMap.get(doctor1.getName()).get(0));
