@@ -1,7 +1,5 @@
 package org.example;
 
-import org.checkerframework.checker.units.qual.A;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +42,6 @@ public class Hospital {
     public Map<Doctor, List<Patient>> assignPatientsToDoctors(List<Doctor> doctors, List<Patient> patients) {
         Map<String, Doctor> treatedCasesToDoctor = new HashMap<>();
         Map<Doctor, List<Patient>> assignPatientToDoctor = new HashMap<>();
-        List<Patient> unassignedPatients = new ArrayList<>();
 
         for (Doctor doctor : doctors) {
             List<String> treatedCase = doctor.getTreatedCases();
@@ -54,10 +51,6 @@ public class Hospital {
             assignPatientToDoctor.put(doctor, new ArrayList<>());
 
         }
-//        treatedCasesToDoctor.forEach((treatedCase, doctorNames) -> {
-//            System.out.print("Case: " + treatedCase + " assigned to " + doctorNames.getName());
-//            System.out.println();
-//        });
 
         for (Patient patient : patients) {
             String patientCondition = patient.getHealthConditions();
@@ -70,14 +63,9 @@ public class Hospital {
             }
             // Case 2: Patient's case not found in treatedCasesToDoctor map
             else {
-                unassignedPatients.add(patient);
+                assignPatientToDoctor.computeIfAbsent(HospitalData.notApplicableDoctor(), k -> new ArrayList<>()).add(patient);
             }
 
-        }
-
-        // Assign unassigned patients to the "N/A" doctor
-        if (!unassignedPatients.isEmpty()) {
-            assignPatientToDoctor.put(HospitalData.notApplicableDoctor(), unassignedPatients);
         }
 
         return assignPatientToDoctor;
