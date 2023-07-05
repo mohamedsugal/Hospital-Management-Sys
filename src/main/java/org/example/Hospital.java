@@ -1,6 +1,5 @@
 package org.example;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,49 +39,33 @@ public class Hospital {
     }
 
     // Task 2: Method that assigns doctors with patients based their health condition
-    public Map<String, List<String>> assignPatientsToDoctors(List<Doctor> doctors, List<Patient> patients) {
-        Map<String, List<String>> treatedCasesToDoctor = new HashMap<>();
-        Map<String, List<String>> assignPatientToDoctor = new HashMap<>();
+    public Map<Doctor, List<Patient>> assignPatientsToDoctors(List<Doctor> doctors, List<Patient> patients) {
+        Map<String, Doctor> treatedCasesToDoctor = new HashMap<>();
+        Map<Doctor, List<Patient>> assignPatientToDoctor = new HashMap<>();
 
         for (Doctor doctor : doctors) {
-            // Initialize an empty list of doctor's treated cases
-            List<String> doctorTreatedCases = new ArrayList<>();
-            for (String treatedCase : doctor.getTreatedCases()) {
-                doctorTreatedCases.add(treatedCase.toLowerCase());
+            List<String> treatedCase = doctor.getTreatedCases();
+            for (String cases : treatedCase) {
+                treatedCasesToDoctor.put(cases, doctor);
             }
+            assignPatientToDoctor.put(doctor, new ArrayList<>());
 
-            treatedCasesToDoctor.put(doctor.getName(), doctorTreatedCases);
-            assignPatientToDoctor.put(doctor.getName(), new ArrayList<>());
-        }
-
-        // Build casesToDoctorsMap of treated cases to doctors
-        Map<String, String> casesToDoctorsMap = new HashMap<>();
-        for (Map.Entry<String, List<String>> entry : treatedCasesToDoctor.entrySet()) {
-            String doctor = entry.getKey();
-            List<String> treatedCases = entry.getValue();
-            for (String cases : treatedCases) {
-                casesToDoctorsMap.put(cases, doctor);
-            }
         }
 
         for (Patient patient : patients) {
-            boolean doctorFound = false;
-            String healthCondition = patient.getHealthConditions().toLowerCase();
-
-            if (casesToDoctorsMap.containsKey(healthCondition)) {
-                String doctor = casesToDoctorsMap.get(healthCondition);
-                assignPatientToDoctor.get(doctor).add(patient.getName());
-                doctorFound = true;
+            String patientCondition = patient.getHealthConditions();
+            // Case1: patient's case found treatedCasesToDoctor map
+            if (treatedCasesToDoctor.containsKey(patientCondition)) {
+                // get single doctor
+                Doctor doctor = treatedCasesToDoctor.get(patientCondition);
+                // Assign doctor to list of patients
+                assignPatientToDoctor.get(doctor).add(patient);
+            }
+            // Case 2: Patient's case not found in treatedCasesToDoctor map
+            else {
+                assignPatientToDoctor.computeIfAbsent(HospitalData.notApplicableDoctor(), k -> new ArrayList<>()).add(patient);
             }
 
-            if (!doctorFound) {
-                // handle multiple patients without a matching doctor
-                if (assignPatientToDoctor.containsKey("N/A")) {
-                    assignPatientToDoctor.get("N/A").add(patient.getName());
-                } else {
-                    assignPatientToDoctor.put("N/A", new ArrayList<>(List.of(patient.getName())));
-                }
-            }
         }
 
         return assignPatientToDoctor;

@@ -22,9 +22,11 @@ public class Main {
         System.out.println("-----------------");
 
         // Print out assignPatientsToDoctors method
-        Map<String, List<String>> assignPatientsToDoctors = hospital.assignPatientsToDoctors(doctors, patients);
-        assignPatientsToDoctors.forEach((doctor, patientsList) -> {
-            System.out.println("Doctor: " + doctor + ": assigned to Patients " + patientsList);
+        Map<Doctor, List<Patient>> assignPatientsToDoctors = hospital.assignPatientsToDoctors(doctors, patients);
+        assignPatientsToDoctors.forEach((doctor, patientList) -> {
+            List<String> allPatients = patientList.stream().map(p -> p.getName()).collect(Collectors.toList());
+            System.out.println("Doctor: " + doctor.getName() + " assigned to Patients: " + allPatients);
+
         });
 
         /**
