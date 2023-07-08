@@ -38,22 +38,13 @@ public class Doctor extends MedicalStaff {
 
     @Override
     public boolean equals(Object obj) {
-        // return true if both of them points the same address in memory
         if(this == obj){
             return true;
         }
-
-        // check if object is null
-        if (obj == null) {
+        if (obj == null || !getClass().equals(obj.getClass())) {
             return false;
         }
-        // check if from a different class
-        if (!getClass().equals(obj.getClass())) {
-            return false;
-        }
-
         Doctor doctor = (Doctor) obj;
-        // Compare the age, license number, name, specialty, and treated cases
         return Objects.equals(getAge(), doctor.getAge()) &&
                 Objects.equals(getLicenseNumber(), doctor.getLicenseNumber()) &&
                 Objects.equals(getName(), doctor.getName()) &&

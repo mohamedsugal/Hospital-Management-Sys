@@ -50,12 +50,4 @@ public class HospitalData {
     public static Doctor notApplicableDoctor() {
         return new Doctor("N/A", -1, "N/A", -1, new ArrayList<>());
     }
-
-    public static Nurse notApplicableNurse() {
-        return new Nurse("N/A", -1, "N/A", -1, "N/A");
-    }
-
-    public static Nurse noNurseAssigned() {
-        return new Nurse("N/A", 0, "N/A", 0, "N/A");
-    }
 }
