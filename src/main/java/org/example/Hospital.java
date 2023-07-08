@@ -65,9 +65,70 @@ public class Hospital {
             else {
                 assignPatientToDoctor.computeIfAbsent(HospitalData.notApplicableDoctor(), k -> new ArrayList<>()).add(patient);
             }
-
         }
-
         return assignPatientToDoctor;
+    }
+
+    // Task 3: Method that search for patient and retrieves the doctor and the nurses that work with the doctor.
+    /**
+     * This function needs helper functions like {@link #doctorsToTreatedCases} {@link #nursesToDoctor}
+     * @param patientName string value of the patient name
+     * @return string that represents the patients info along
+     * with the doctor and his/her specialty and assigned nurses
+     */
+    public String searchPatientOpt(final String patientName) {
+        boolean foundPatient = false;
+        List<Patient> patients = HospitalData.getPatients();
+        Patient patientInfo = null;
+        for (Patient patient : patients) {
+            if (patient.getName().equals(patientName)) {
+                patientInfo = patient;
+                foundPatient = true;
+            }
+        }
+        if (!foundPatient) {
+            return "Patient " + patientName + " doesn't exist!";
+        }
+        Map<String, Doctor> treatedCasesToDoctor = doctorsToTreatedCases(HospitalData.getDoctors());
+        Doctor doctor = treatedCasesToDoctor.get(patientInfo.getHealthConditions());
+        if (doctor == null) {
+            return "Patient " + patientName + " doesn't have assigned doctor!";
+        }
+        StringBuilder sb = new StringBuilder();
+        List<Nurse> nurses = nursesToDoctor(doctor, HospitalData.getNurses());
+        for (int i = 0; i < nurses.size(); i++) {
+            if (i == nurses.size() - 1) {
+                sb.append(nurses.get(i).getName());
+            } else {
+                sb.append(nurses.get(i).getName()).append(", ");
+            }
+        }
+        return patientInfo + "\n" +
+                "Assigned Doctor: " + doctor.getName() + " (specialty: " + doctor.getSpecialty() + ")\n" +
+                "Assigned Nurse: " + (sb.toString().isEmpty() ? "N/A" : sb.toString());
+    }
+
+    // Helper method to map treated cases to doctors
+    private Map<String, Doctor> doctorsToTreatedCases(List<Doctor> doctors) {
+        Map<String, Doctor> treatedCasesToDoctor = new HashMap<>();
+        for (Doctor doctor : doctors) {
+            List<String> treatedCases = doctor.getTreatedCases();
+            for (String caseName : treatedCases) {
+                treatedCasesToDoctor.put(caseName, doctor);
+            }
+        }
+        return treatedCasesToDoctor;
+    }
+
+    // Helper method to assign nurses with similar specialty to the doctor
+    private List<Nurse> nursesToDoctor(Doctor doctor, List<Nurse> nurses) {
+        List<Nurse> assignedNurses = new ArrayList<>();
+        for (Nurse nurse : nurses) {
+            String nurseSpecialty = nurse.getSpecialty().substring(0, nurse.getSpecialty().length() - 6);
+            if (nurseSpecialty.equalsIgnoreCase(doctor.getSpecialty())) {
+                assignedNurses.add(nurse);
+            }
+        }
+        return assignedNurses;
     }
 }

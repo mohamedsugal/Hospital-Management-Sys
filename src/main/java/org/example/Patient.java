@@ -28,4 +28,13 @@ public class Patient {
     public String getHealthConditions() {
         return healthConditions;
     }
+
+    @Override
+    public String toString() {
+        System.out.println("Patient details:");
+        return "Patient Name: " + name +
+                "\nAge: " + age +
+                "\nAddress: " + address +
+                "\nHealth Condition: " + healthConditions;
+    }
 }
