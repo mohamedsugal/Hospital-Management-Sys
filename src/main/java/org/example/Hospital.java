@@ -76,9 +76,11 @@ public class Hospital {
      * @return string that represents the patients info along
      * with the doctor and his/her specialty and assigned nurses
      */
-    public String searchPatientOpt(final String patientName) {
+    public String searchPatient(final String patientName,
+                                List<Doctor> doctors,
+                                List<Nurse> nurses,
+                                List<Patient> patients) {
         boolean foundPatient = false;
-        List<Patient> patients = HospitalData.getPatients();
         Patient patientInfo = null;
         for (Patient patient : patients) {
             if (patient.getName().equals(patientName)) {
@@ -89,15 +91,15 @@ public class Hospital {
         if (!foundPatient) {
             return "Patient " + patientName + " doesn't exist!";
         }
-        Map<String, Doctor> treatedCasesToDoctor = doctorsToTreatedCases(HospitalData.getDoctors());
+        Map<String, Doctor> treatedCasesToDoctor = doctorsToTreatedCases(doctors);
         Doctor doctor = treatedCasesToDoctor.get(patientInfo.getHealthConditions());
         if (doctor == null) {
             return "Patient " + patientName + " doesn't have assigned doctor!";
         }
         StringBuilder sb = new StringBuilder();
-        List<Nurse> nurses = nursesToDoctor(doctor, HospitalData.getNurses());
-        for (int i = 0; i < nurses.size(); i++) {
-            if (i == nurses.size() - 1) {
+        List<Nurse> nursesList = nursesToDoctor(doctor, nurses);
+        for (int i = 0; i < nursesList.size(); i++) {
+            if (i == nursesList.size() - 1) {
                 sb.append(nurses.get(i).getName());
             } else {
                 sb.append(nurses.get(i).getName()).append(", ");
