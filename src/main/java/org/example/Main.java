@@ -29,7 +29,7 @@ public class Main {
         });
 
         System.out.println("-------");
-        System.out.println(hospital.searchPatient("Christiano Ronaldo", doctors, nurses));
+        System.out.println(hospital.searchPatient("Danial Berg", doctors, nurses, patients));
 
         /**
          TASKS

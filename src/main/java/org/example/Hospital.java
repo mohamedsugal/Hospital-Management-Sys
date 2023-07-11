@@ -76,9 +76,11 @@ public class Hospital {
      * @return string that represents the patients info along
      * with the doctor and his/her specialty and assigned nurses
      */
-    public String searchPatient(final String patientName, List<Doctor> doctors, List<Nurse> nurses) {
+    public String searchPatient(final String patientName,
+                                List<Doctor> doctors,
+                                List<Nurse> nurses,
+                                List<Patient> patients) {
         boolean foundPatient = false;
-        List<Patient> patients = HospitalData.getPatients();
         Patient patientInfo = null;
         for (Patient patient : patients) {
             if (patient.getName().equals(patientName)) {
